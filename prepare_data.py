@@ -3,7 +3,7 @@ import numpy as np
 import cv2 as cv
 import pickle
 
-dir = 'data'
+DIR = 'data'
 
 categories = ['dogs', 'wolves']
 
@@ -12,7 +12,7 @@ data = []
 IMG_SIZE = 256
 
 for category in categories:
-    path = os.path.join(dir, category)
+    path = os.path.join(DIR, category)
     label = categories.index(category)
 
     for img in os.listdir(path):
