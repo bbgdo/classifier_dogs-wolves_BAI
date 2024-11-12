@@ -9,7 +9,7 @@ categories = ["dogs", "wolves"]
 IMG_SIZE = 256
 
 
-image_path = "test_images/03.jpg"
+image_path = "data/dogs/n02113712_936.jpg"
 animal_img = cv.imread(image_path, 1)
 if animal_img is None:
     print(f"no such image: {image_path}")
@@ -25,17 +25,3 @@ else:
     plt.title(f"Prediction: {categories[prediction[0]]}")
     plt.axis('off')
     plt.show()
-
-# unfinished code. need some attention
-# def auto_test():
-#     accuracy = model.score(xtest, ytest)
-#     print(f"Accuracy: {accuracy}")
-#
-#     prediction = model.predict([xtest[0]])
-#     print(f"Prediction: {categories[prediction[0]]}")
-#
-#     animal = xtest[0].reshape(IMG_SIZE, IMG_SIZE, 3)
-#     plt.imshow(animal, cmap='gray')
-#     plt.show()
-#
-#auto_test()
