@@ -3,25 +3,39 @@ import matplotlib.pyplot as plt
 import cv2 as cv
 import numpy as np
 
+import time
+start_time = time.time()
+
 model = pickle.load(open('dogs_vs_wolves_svm.sav', 'rb'))
+accuracy, _ = pickle.load(open('accuracy_and_predictions.pickle', 'rb'))
 
 categories = ["dogs", "wolves"]
 IMG_SIZE = 256
 
-
-image_path = "data/dogs/n02113712_936.jpg"
+# image_path = "data/dogs/n02113712_936.jpg"
+image_path = "test_images/03.jpg"
 animal_img = cv.imread(image_path, 1)
+
+
 if animal_img is None:
-    print(f"no such image: {image_path}")
+    print(f"No such image: {image_path}")
 else:
     resized_animal_img = cv.resize(animal_img, (IMG_SIZE, IMG_SIZE))
-
     image_vector = np.array(resized_animal_img).flatten()
 
     prediction = model.predict([image_vector])
-    print(f"Prediction: {categories[prediction[0]]}")
+    predicted_label = categories[prediction[0]]
+    probabilities = model.predict_proba([image_vector])
+    max_probability = max(probabilities[0]) * 100
+
+    print(f"Prediction: {predicted_label} | Probability: {max_probability:.2f}%")
 
     plt.imshow(cv.cvtColor(resized_animal_img, cv.COLOR_BGR2RGB))
-    plt.title(f"Prediction: {categories[prediction[0]]}")
+    plt.title(f"Prediction: {predicted_label} | Probability: {max_probability:.2f}%")
     plt.axis('off')
     plt.show()
+
+end_time = time.time()
+total_time = end_time - start_time
+print(f'Model accuracy: {accuracy * 100:.2f}%')
+print(f"Execution time: {total_time:.2f} seconds")
