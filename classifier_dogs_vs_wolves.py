@@ -6,8 +6,7 @@ import numpy as np
 import time
 start_time = time.time()
 
-model = pickle.load(open('dogs_vs_wolves_svm.sav', 'rb'))
-accuracy, _ = pickle.load(open('accuracy_and_predictions.pickle', 'rb'))
+model, accuracy = pickle.load(open('dogs_vs_wolves_svm.sav', 'rb'))
 
 categories = ["dogs", "wolves"]
 IMG_SIZE = 256
